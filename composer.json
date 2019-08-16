@@ -1,0 +1,12 @@
+{
+    "name": "fpfgithub/cmq",
+    "description": "腾讯云CMQ",
+    "type": "project",
+    "authors": [
+        {
+            "name": "fpfgithub",
+            "email": "1746433258@qq.com"
+        }
+    ],
+    "require": {}
+}

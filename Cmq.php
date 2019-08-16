@@ -1,5 +1,6 @@
 <?php
-namespace Xz\Lib;
+namespace Fpfgithub\Cmq;
+
 require_once 'cmq/cmq_api.php';
 require_once CMQAPI_ROOT_PATH . '/account.php';
 require_once CMQAPI_ROOT_PATH . '/queue.php';

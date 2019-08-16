@@ -1,9 +1,10 @@
 <?php
-namespace Xz\Lib;
+namespace Fpfgithub\Cmq;
+
 /**
  * Sign
  * 签名类
-*/
+ */
 class Signature
 {
     /**
@@ -17,22 +18,20 @@ class Signature
     public static function sign($srcStr, $secretKey, $method = 'HmacSHA1')
     {
         switch ($method) {
-        case 'HmacSHA1':
-            $retStr = base64_encode(hash_hmac('sha1', $srcStr, $secretKey, true));
-            break;
-        case 'HmacSHA256':
-            $retStr = base64_encode(hash_hmac('sha256', $srcStr, $secretKey, true));
-             break;
-        default:
-            throw new Exception($method . ' is not a supported encrypt method');
-            return false;
-            break;
+            case 'HmacSHA1':
+                $retStr = base64_encode(hash_hmac('sha1', $srcStr, $secretKey, true));
+                break;
+            case 'HmacSHA256':
+                $retStr = base64_encode(hash_hmac('sha256', $srcStr, $secretKey, true));
+                break;
+            default:
+                throw new Exception($method . ' is not a supported encrypt method');
+                return false;
+                break;
         }
 
         return $retStr;
     }
-    
-
 
     /**
      * makeSignPlainText
@@ -45,8 +44,7 @@ class Signature
      */
     public static function makeSignPlainText($requestParams,
         $requestMethod = 'POST', $requestHost = YUNAPI_URL,
-        $requestPath = '/v2/index.php')
-    {
+        $requestPath = '/v2/index.php') {
 
         $url = $requestHost . $requestPath;
 
@@ -70,10 +68,8 @@ class Signature
         $paramStr = '';
         ksort($requestParams);
         $i = 0;
-        foreach ($requestParams as $key => $value)
-        {
-            if ($key == 'Signature')
-            {
+        foreach ($requestParams as $key => $value) {
+            if ($key == 'Signature') {
                 continue;
             }
             // 排除上传文件的参数
@@ -81,17 +77,13 @@ class Signature
                 continue;
             }
             // 把 参数中的 _ 替换成 .
-            if (strpos($key, '_'))
-            {
+            if (strpos($key, '_')) {
                 $key = str_replace('_', '.', $key);
             }
 
-            if ($i == 0)
-            {
+            if ($i == 0) {
                 $paramStr .= '?';
-            }
-            else
-            {
+            } else {
                 $paramStr .= '&';
             }
             $paramStr .= $key . '=' . $value;
@@ -102,4 +94,3 @@ class Signature
     }
 
 }
-

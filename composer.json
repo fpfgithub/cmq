@@ -16,10 +16,5 @@
         "phpunit/phpunit": "^4.8",
         "apigen/apigen": "^4.1"
     },
-    "autoload": {
-        "psr-4": {
-            "Xz\\Lib\\": "src/cmq/"
-        }
-    },
     "minimum-stability": "dev"
 }

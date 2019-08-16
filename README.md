@@ -32,4 +32,8 @@ do {
 //count
 $count = $cmq->count($queueName);
 echo 'count=>'.$count.PHP_EOL;
+
+//删除队列
+$cmq->set_queue_name($queueName.APP_ENV);
+$cmq->delete_queue($queueName.APP_ENV);
 ```

@@ -16,5 +16,10 @@
         "phpunit/phpunit": "^4.8",
         "apigen/apigen": "^4.1"
     },
+    "autoload": {
+        "psr-4": {
+            "Fpfgithub\\Cmq\\": ""
+        }
+    },
     "minimum-stability": "dev"
 }

@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "cmq\\": "src/cmq/"
+            "Xz\\Lib\\": "src/cmq/"
         }
     },
     "minimum-stability": "dev"

@@ -226,25 +226,29 @@ class Cmq
     }
 
     //写消息
-    public function set($queue_name, $msg, $delay_seconds = 0)
+    public function set($queue_name, $msgtext, $delay_seconds = 0)
     {
-        try {
-            $this->init($queue_name);
-            $msg    = new Message($msg);
-            $re_msg = $this->queue->send_message($msg, $delay_seconds);
-        } catch (\Xz\Lib\CMQServerException $e) {
-            if (4440 == $e->code) {
-                //队列不存在时默认新建
-                $param = array(
-                    'pollingWaitSeconds' => 3, //消息接收长轮询等待时间
-                );
-                $this->create_queue($queue_name, $param);
-                $this->init($queue_name);
-                $re_msg = $this->queue->send_message($msg, $delay_seconds);
-            } else {
-                return false;
+        $trytimes = 3;
+        do {
+            try {
+                $this->set_queue_name($queue_name);
+                $msg      = new Message($msgtext);
+                $re_msg   = $this->queue->send_message($msg, $delay_seconds);
+                $trytimes = 0;
+            } catch (CMQServerException $e) {
+                if (4440 == $e->code) {
+                    //队列不存在时默认新建
+                    $param = array(
+                        'pollingWaitSeconds' => 3, //消息接收长轮询等待时间
+                    );
+                    $this->create_queue($queue_name, $param);
+                }
+                $trytimes -= 1;
             }
-        }
+            if (empty($re_msg)) {
+                $trytimes = 1;
+            }
+        } while ($trytimes);
         return $re_msg->msgId;
     }
     //读消息

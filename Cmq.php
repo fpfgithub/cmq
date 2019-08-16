@@ -1,5 +1,5 @@
 <?php
-namespace Fpfgithub\Cmq;
+namespace Qcloud;
 
 require_once 'cmq/cmq_api.php';
 require_once CMQAPI_ROOT_PATH . '/account.php';

@@ -1,5 +1,5 @@
 <?php
-namespace Fpfgithub\Cmq;
+namespace Qcloud;
 
 class CMQExceptionBase extends \Exception
 {

@@ -15,6 +15,7 @@ class Cmq
     private $queue_name;
     private $queue;
     private $account;
+    private $isenv;
 
     /*
      * 类初始化
@@ -23,11 +24,12 @@ class Cmq
      * 内网https://cmq-queue-sh.api.tencentyun.com
      * 其中sh可以替换为gz或bj，代表区域
      */
-    public function __construct($secretId, $secretKey, $endpoint)
+    public function __construct($secretId, $secretKey, $endpoint, $isenv=true)
     {
         $this->secretId  = $secretId;
         $this->secretKey = $secretKey;
         $this->endpoint  = $endpoint;
+        $this->isenv     = $isenv;
         $this->account   = new Account($this->endpoint, $this->secretId, $this->secretKey);
     }
 
@@ -36,7 +38,7 @@ class Cmq
      */
     public function init($queue_name)
     {
-        if (strpos($queue_name, APP_ENV) === false) {
+        if (strpos($queue_name, APP_ENV) === false && $this->isenv) {
             $queue_name = $queue_name . APP_ENV;
         }
         $this->queue_name = $queue_name;
@@ -69,7 +71,7 @@ class Cmq
     public function create_queue($queue_name, $param)
     {
         try {
-            if (strpos($queue_name, APP_ENV) === false) {
+            if (strpos($queue_name, APP_ENV) === false && $this->isenv) {
                 $queue_name = $queue_name . APP_ENV;
             }
             $this->queue_name      = $queue_name;

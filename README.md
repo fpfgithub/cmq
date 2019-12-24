@@ -6,10 +6,11 @@
 require 'vendor/autoload.php';
 
 define('APP_ENV', 'test');//根据不同的环境 区分同名队列
+$isenv = true; //是否需要拼接环境后缀APP_ENV,默认true
 $secretId = ""; //"云 API 密钥 SecretId";
 $secretKey = ""; //"云 API 密钥 SecretKey";
 $endPoint = 'https://cmq-queue-gz.api.qcloud.com';//endPoint
-$cmq =  new  Qcloud\Cmq($secretId, $secretKey, $endPoint);
+$cmq =  new  Qcloud\Cmq($secretId, $secretKey, $endPoint, $isenv);
 
 $queueName = 'test-queue';
 

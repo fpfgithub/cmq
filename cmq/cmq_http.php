@@ -9,7 +9,7 @@ class CMQHttp
     private $keep_alive;
     private $host;
 
-    public function __construct($host, $connection_timeout = 10, $keep_alive = true)
+    public function __construct($host, $connection_timeout = 3, $keep_alive = true)
     {
         $this->connection_timeout = $connection_timeout;
         $this->keep_alive         = $keep_alive;
